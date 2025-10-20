@@ -44,38 +44,6 @@
 Navegador web moderno (Chrome, Firefox, Edge)
 Editor de código (VS Code, Sublime Text, etc.)
 
-
-##Paso 1: Como Descargar el proyecto
-- Clona el repositorio o descarga el ZIP :
-git clone https://github.com/tu-usuario/bike-station.git
-
-- Paso 2: Mover archivos a XAMPP
-Copia la carpeta del proyecto a:
-C:/xampp/htdocs/bike-station/
-Paso 3: Iniciar servicios
-
-- Paso 3: Abre el Panel de Control de XAMPP
-Inicia Apache
-Inicia MySQL
-
-- Paso 4: Crear la base de datos
-
-
-- Crea una nueva base de datos llamada bike_station en el gestor de base de datos de tu preferencia.
-
-- Selecciona la base de datos
-Ve a la pestaña SQL
-Copia y pega el contenido del archivo db/bike_station.sql
-Haz clic en Continuar
-
-- Paso 5: Configurar la conexión
-Abre el archivo php/conexion.php y verifica/ajusta las credenciales.
-
-- Paso 6: Acceder al sistema
-Abre tu navegador y accede a:
-http://localhost/bike-station/
-
-
 ###📁 Estructura del Proyecto
 ![Estructura](screenshots/estructura.png)
 
