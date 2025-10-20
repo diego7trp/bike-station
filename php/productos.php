@@ -25,7 +25,7 @@ switch ($accion) {
 }
 
 function listarProductos($conn) {
-    $sql = "SELECT p.*, t.nombre as tipo_nombre 
+    $sql = "SELECT p.id, p.nombre, p.precio, t.nombre as tipo 
             FROM productos p 
             LEFT JOIN tipos_productos t ON p.tipo_producto_id = t.id 
             ORDER BY p.id DESC";
@@ -43,7 +43,7 @@ function listarProductos($conn) {
 
 function obtenerProducto($conn) {
     $id = $_GET['id'];
-    $sql = "SELECT * FROM productos WHERE id = $id";
+    $sql = "SELECT p.*, p.tipo_producto_id as tipo_id FROM productos p WHERE p.id = $id";
     $resultado = mysqli_query($conn, $sql);
     
     if ($fila = mysqli_fetch_assoc($resultado)) {
@@ -55,13 +55,11 @@ function obtenerProducto($conn) {
 
 function crearProducto($conn) {
     $nombre = mysqli_real_escape_string($conn, $_POST['nombre']);
-    $descripcion = mysqli_real_escape_string($conn, $_POST['descripcion']);
     $precio = $_POST['precio'];
-    $stock = $_POST['stock'];
-    $tipo_producto_id = $_POST['tipo_producto_id'];
+    $tipo_id = $_POST['tipo'];
     
-    $sql = "INSERT INTO productos (nombre, descripcion, precio, stock, tipo_producto_id) 
-            VALUES ('$nombre', '$descripcion', $precio, $stock, $tipo_producto_id)";
+    $sql = "INSERT INTO productos (nombre, precio, tipo_producto_id) 
+            VALUES ('$nombre', $precio, $tipo_id)";
     
     if (mysqli_query($conn, $sql)) {
         echo json_encode(['success' => true, 'message' => 'Producto creado exitosamente']);
@@ -73,17 +71,13 @@ function crearProducto($conn) {
 function actualizarProducto($conn) {
     $id = $_POST['id'];
     $nombre = mysqli_real_escape_string($conn, $_POST['nombre']);
-    $descripcion = mysqli_real_escape_string($conn, $_POST['descripcion']);
     $precio = $_POST['precio'];
-    $stock = $_POST['stock'];
-    $tipo_producto_id = $_POST['tipo_producto_id'];
+    $tipo_id = $_POST['tipo'];
     
     $sql = "UPDATE productos SET 
             nombre = '$nombre', 
-            descripcion = '$descripcion', 
             precio = $precio, 
-            stock = $stock, 
-            tipo_producto_id = $tipo_producto_id 
+            tipo_producto_id = $tipo_id 
             WHERE id = $id";
     
     if (mysqli_query($conn, $sql)) {
